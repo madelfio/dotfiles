@@ -36,17 +36,14 @@ if [ "$color_prompt" = yes ]; then
   LIGHT_GREEN="\[\033[0;32m\]"
   CYAN="\[\033[0;36m\]"
   if [ `/bin/hostname -s` = "hod" ] ; then
-    hcolor=$LIGHT_GREEN
+    export hcolor=$LIGHT_GREEN
   else
-    hcolor=$CYAN
+    export hcolor="\[\e[38;5;$((48 + $(hostname | cksum | cut -c1-3) % 170))m\]"
   fi
-    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    #PS1='\[\033[01;32m\]\h\[\033[00m\]:\w\$ '
-    #PS1="$hcolor\h\[\033[00m\]:\w\$ "
-    #PS1="\[\e[1;$((31 + $(hostname | cksum | cut -c2-4) % 6))m\]\h\[\033[00m\]:\w\$ "
-    PS1="\[\e[38;5;$((48 + $(hostname | cksum | cut -c1-3) % 170))m\]\h\[\033[00m\]:\w\$ "
+  #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+  PS1="$hcolor\h\[\033[00m\]:\w\$ "
 else
-    PS1='${debian_chroot:+($debian_chroot)}\h:\w\$ '
+  PS1='${debian_chroot:+($debian_chroot)}\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
 
@@ -88,6 +85,26 @@ complete -o default -F _pip_completion pip
 # from: http://www.commandlinefu.com/commands/view/2766/ssh-autocomplete
 complete -W "$(echo $(grep '^ssh ' ~/.bash_history | sort -u | sed 's/^ssh //'))" ssh
 # hostname completion end
+
+# easy unpacking
+unp() {
+  if [ x == x$1 ]; then
+    echo 'usage: unp [filename]'
+  elif [ -f "$1" ]; then
+    case "$1" in
+      *.tar.gz) tar xvzf "$1" ;;
+      *.tgz) tar xvzf "$1" ;;
+      *.tar.bz2) tar xvjf "$1" ;;
+      *.gz) gunzip "$1" ;;
+      *.bz2) bunzip2 "$1" ;;
+      *.tar) tar zvf "$1" ;;
+      *.zip|*.egg|*.jar) unzip "$1" ;;
+      *) echo "'$1' is an unknown archive" ;;
+    esac
+  else
+    echo "'$1' is not a valid archive"
+  fi
+}
 
 # set PYTHONSTARTUP
 export PYTHONSTARTUP=$HOME/.pythonrc
