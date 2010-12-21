@@ -10,14 +10,12 @@ export HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
-
-export EDITOR=vim
-
-
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -77,10 +75,20 @@ esac
 alias ls='ls --color=auto'
 alias ll='ls -l --ignore=*.pyc'
 
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
 export PYTHONPATH=$HOME/local/lib/python2.6/site-packages:$PYTHONPATH
 export PERL5LIB=$HOME/local/lib/perl5:$HOME/local/lib/perl5/site_perl:$HOME/local/lib64/perl5:$HOME/local/lib64/perl5/site_perl:$PERL5LIB
 export PATH=$HOME/local/bin:$PATH
 export HISTIGNORE="&:ls:ls -l"
+export EDITOR=vim
 
 if [ -f "$HOME/local/bin/virtualenvwrapper.sh" ]; then
     source $HOME/local/bin/virtualenvwrapper.sh
