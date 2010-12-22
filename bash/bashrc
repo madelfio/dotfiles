@@ -1,10 +1,7 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# don't put duplicate lines in the history. See bash(1) for more options
-# don't overwrite GNU Midnight Commander's setting of `ignorespace'.
-export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
-# ... or force ignoredups and ignorespace
+# force ignoredups and ignorespace
 export HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
@@ -49,7 +46,6 @@ fi
 
 if [ "$color_prompt" = yes ]; then
   LIGHT_GREEN="\[\033[0;32m\]"
-  CYAN="\[\033[0;36m\]"
   if [ `/bin/hostname -s` = "hod" ] ; then
     export hcolor=$LIGHT_GREEN
   else
@@ -73,7 +69,12 @@ xterm*|rxvt*)
 esac
 
 # ls aliases
-alias ls='ls --color=auto'
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+
+    alias grep='grep --color=auto'
+fi
 alias ll='ls -l --ignore=*.pyc'
 
 # Alias definitions.
@@ -95,9 +96,13 @@ if [ -f "$HOME/local/bin/virtualenvwrapper.sh" ]; then
     source $HOME/local/bin/virtualenvwrapper.sh
 fi
 
+if [ -f "/usr/local/bin/virtualenvwrapper.sh" ]; then
+    source /usr/local/bin/virtualenvwrapper.sh
+fi
+
 #export PATH=$PATH:/fs/sand/xls/hadoop/hadoop/bin
 
-#if [ -f /etc/bash_completion ]; then
+#if [ -f /etc/bash_completion ] && shopt -oq posix; then
 #  . /etc/bash_completion
 #fi
 
