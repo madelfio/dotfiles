@@ -1,6 +1,22 @@
-export PATH=$HOME/local/bin:$PATH
-export PRINTER=ps4430bnb
-export EDITOR=vim
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+# force ignoredups and ignorespace
+export HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
@@ -30,7 +46,6 @@ fi
 
 if [ "$color_prompt" = yes ]; then
   LIGHT_GREEN="\[\033[0;32m\]"
-  CYAN="\[\033[0;36m\]"
   if [ `/bin/hostname -s` = "hod" ] ; then
     export hcolor=$LIGHT_GREEN
   else
@@ -38,7 +53,8 @@ if [ "$color_prompt" = yes ]; then
   fi
   PS1="$hcolor\h\[\033[00m\]:\w\$ "
 else
-  PS1='${debian_chroot:+($debian_chroot)}\h:\w\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\h:\w\$ '
+    #PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
 
@@ -52,17 +68,42 @@ xterm*|rxvt*)
 esac
 
 # ls aliases
-alias ls='ls --color=auto'
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+
+    alias grep='grep --color=auto'
+fi
 alias ll='ls -l --ignore=*.pyc'
 
-################
-# PYTHON STUFF #
-################
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
 export PYTHONPATH=$HOME/local/lib/python2.6/site-packages:$PYTHONPATH
+export PERL5LIB=$HOME/local/lib/perl5:$HOME/local/lib/perl5/site_perl:$HOME/local/lib64/perl5:$HOME/local/lib64/perl5/site_perl:$PERL5LIB
+export PATH=$HOME/local/bin:$PATH
+export HISTIGNORE="&:ls:ls -l"
+export EDITOR=vim
 
 if [ -f "$HOME/local/bin/virtualenvwrapper.sh" ]; then
     source $HOME/local/bin/virtualenvwrapper.sh
 fi
+
+if [ -f "/usr/local/bin/virtualenvwrapper.sh" ]; then
+    source /usr/local/bin/virtualenvwrapper.sh
+fi
+
+#export PATH=$PATH:/fs/sand/xls/hadoop/hadoop/bin
+
+#if [ -f /etc/bash_completion ] && shopt -oq posix; then
+#  . /etc/bash_completion
+#fi
 
 # pip bash completion
 _pip_completion()
@@ -122,3 +163,4 @@ export HISTIGNORE="&:ls:ls -l"
 
 # eclipse-specific commands
 export PATH=/opt/stow/eclipse-jee-galileo-SR1-linux-gtk-x86_64:$PATH
+export PRINTER=ps4430bnb
