@@ -1,3 +1,4 @@
+export PATH=$HOME/local/bin:$PATH
 export PRINTER=ps4430bnb
 export EDITOR=vim
 
@@ -27,11 +28,6 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-# if [ "$color_prompt" = yes ]; then
-#     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-# else
-#     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-# fi
 if [ "$color_prompt" = yes ]; then
   LIGHT_GREEN="\[\033[0;32m\]"
   CYAN="\[\033[0;36m\]"
@@ -40,7 +36,6 @@ if [ "$color_prompt" = yes ]; then
   else
     export hcolor="\[\e[38;5;$((48 + $(hostname | cksum | cut -c1-3) % 170))m\]"
   fi
-  #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
   PS1="$hcolor\h\[\033[00m\]:\w\$ "
 else
   PS1='${debian_chroot:+($debian_chroot)}\h:\w\$ '
@@ -56,20 +51,18 @@ xterm*|rxvt*)
     ;;
 esac
 
+# ls aliases
+alias ls='ls --color=auto'
+alias ll='ls -l --ignore=*.pyc'
+
+################
+# PYTHON STUFF #
+################
 export PYTHONPATH=$HOME/local/lib/python2.6/site-packages:$PYTHONPATH
-export PERL5LIB=$HOME/local/lib/perl5:$HOME/local/lib/perl5/site_perl:$HOME/local/lib64/perl5:$HOME/local/lib64/perl5/site_perl:$PERL5LIB
-export PATH=$HOME/local/bin:$PATH
-export HISTIGNORE="&:ls:ls -l"
 
 if [ -f "$HOME/local/bin/virtualenvwrapper.sh" ]; then
     source $HOME/local/bin/virtualenvwrapper.sh
 fi
-
-export PATH=$PATH:/fs/sand/xls/hadoop/hadoop/bin
-
-# ls aliases
-alias ls='ls --color=auto'
-alias ll='ls -l --ignore=*.pyc'
 
 # pip bash completion
 _pip_completion()
@@ -80,6 +73,10 @@ _pip_completion()
 }
 complete -o default -F _pip_completion pip
 # pip bash completion end
+
+# set PYTHONSTARTUP
+export PYTHONSTARTUP=$HOME/.pythonrc
+
 
 # hostname completion
 # from: http://www.commandlinefu.com/commands/view/2766/ssh-autocomplete
@@ -106,15 +103,22 @@ unp() {
   fi
 }
 
-# set PYTHONSTARTUP
-export PYTHONSTARTUP=$HOME/.pythonrc
-
 # database connections
 alias db_xls='psql -U bteitler -h sametsrv01 xls'
 alias db_ontu='psql -U bteitler -h sametdb_ontuition -p 54324 Ontuition'
 
+export PERL5LIB=$HOME/local/lib/perl5:$HOME/local/lib/perl5/site_perl:$PERL5LIB
+export PERL5LIB=$HOME/local/lib64/perl5:$HOME/local/lib64/perl5/site_perl:$PERL5LIB
+export HISTIGNORE="&:ls:ls -l"
+
+# hadoop-specific commands
+#export PATH=$PATH:/fs/sand/xls/hadoop/hadoop/bin
+
 # NS2-specific commands
-NSHOME=$HOME/temp/ns-allinone-2.34
-export PATH=$PATH:$NSHOME/bin:$NSHOME/tcl8.4.18/unix:$NSHOME/tk8.4.18/unix
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NSHOME/otcl-1.13:$NSHOME/lib
-export TCL_LIBRARY=$NSHOME/tcl8.4.18/library
+#NSHOME=$HOME/temp/ns-allinone-2.34
+#export PATH=$PATH:$NSHOME/bin:$NSHOME/tcl8.4.18/unix:$NSHOME/tk8.4.18/unix
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NSHOME/otcl-1.13:$NSHOME/lib
+#export TCL_LIBRARY=$NSHOME/tcl8.4.18/library
+
+# eclipse-specific commands
+export PATH=/opt/stow/eclipse-jee-galileo-SR1-linux-gtk-x86_64:$PATH
