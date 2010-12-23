@@ -55,7 +55,6 @@ if [ "$color_prompt" = yes ]; then
   else
     export hcolor="\[\e[38;5;$((48 + $(hostname | cksum | cut -c1-3) % 170))m\]"
   fi
-  #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
   PS1="$hcolor\h\[\033[00m\]:\w\$ "
 else
     PS1='${debian_chroot:+($debian_chroot)}\h:\w\$ '
@@ -120,6 +119,10 @@ _pip_completion()
 complete -o default -F _pip_completion pip
 # pip bash completion end
 
+# set PYTHONSTARTUP
+export PYTHONSTARTUP=$HOME/.pythonrc
+
+
 # hostname completion
 # from: http://www.commandlinefu.com/commands/view/2766/ssh-autocomplete
 complete -W "$(echo $(grep '^ssh ' ~/.bash_history | sort -u | sed 's/^ssh //'))" ssh
@@ -145,12 +148,16 @@ unp() {
   fi
 }
 
-# set PYTHONSTARTUP
-export PYTHONSTARTUP=$HOME/.pythonrc
-
 # database connections
 alias db_xls='psql -U bteitler -h sametsrv01 xls'
 alias db_ontu='psql -U bteitler -h sametdb_ontuition -p 54324 Ontuition'
+
+export PERL5LIB=$HOME/local/lib/perl5:$HOME/local/lib/perl5/site_perl:$PERL5LIB
+export PERL5LIB=$HOME/local/lib64/perl5:$HOME/local/lib64/perl5/site_perl:$PERL5LIB
+export HISTIGNORE="&:ls:ls -l"
+
+# hadoop-specific commands
+#export PATH=$PATH:/fs/sand/xls/hadoop/hadoop/bin
 
 # NS2-specific commands
 #NSHOME=$HOME/temp/ns-allinone-2.34
@@ -158,4 +165,6 @@ alias db_ontu='psql -U bteitler -h sametdb_ontuition -p 54324 Ontuition'
 #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NSHOME/otcl-1.13:$NSHOME/lib
 #export TCL_LIBRARY=$NSHOME/tcl8.4.18/library
 
+# eclipse-specific commands
+export PATH=/opt/stow/eclipse-jee-galileo-SR1-linux-gtk-x86_64:$PATH
 export PRINTER=ps4430bnb
