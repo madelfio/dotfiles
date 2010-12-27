@@ -148,6 +148,15 @@ unp() {
   fi
 }
 
+check_distro() {
+  if [ -f "/usr/bin/lsb_release" ]; then
+    lsb_release -ds
+  else
+    cat /etc/*release
+  fi
+  uname -m
+}
+
 # database connections
 alias db_xls='psql -U bteitler -h sametsrv01 xls'
 alias db_ontu='psql -U bteitler -h sametdb_ontuition -p 54324 Ontuition'
