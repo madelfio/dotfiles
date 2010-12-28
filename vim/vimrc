@@ -15,6 +15,7 @@ set visualbell
 set title
 set titleold="Terminal"
 set number
+set showcmd
 
 set wrap
 set textwidth=75
