@@ -24,7 +24,7 @@ shopt -s checkwinsize
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
+  debian_chroot=$(cat /etc/debian_chroot)
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
@@ -38,14 +38,14 @@ esac
 force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
+  if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+    color_prompt=yes
+  else
+    color_prompt=
+  fi
 fi
 
 if [ "$color_prompt" = yes ]; then
@@ -89,8 +89,6 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-export PYTHONPATH=$HOME/local/lib/python2.6/site-packages:$PYTHONPATH
-export PERL5LIB=$HOME/local/lib/perl5:$HOME/local/lib/perl5/site_perl:$HOME/local/lib64/perl5:$HOME/local/lib64/perl5/site_perl:$PERL5LIB
 export PATH=$HOME/local/bin:$PATH
 export HISTIGNORE="&:ls:ls -l"
 export EDITOR=vim
@@ -102,8 +100,6 @@ fi
 if [ -f "/usr/local/bin/virtualenvwrapper.sh" ]; then
     source /usr/local/bin/virtualenvwrapper.sh
 fi
-
-#export PATH=$PATH:/fs/sand/xls/hadoop/hadoop/bin
 
 #if [ -f /etc/bash_completion ] && shopt -oq posix; then
 #  . /etc/bash_completion
@@ -157,23 +153,6 @@ check_distro() {
   uname -m
 }
 
-# database connections
-alias db_xls='psql -U bteitler -h sametsrv01 xls'
-alias db_ontu='psql -U bteitler -h sametdb_ontuition -p 54324 Ontuition'
-
-export PERL5LIB=$HOME/local/lib/perl5:$HOME/local/lib/perl5/site_perl:$PERL5LIB
-export PERL5LIB=$HOME/local/lib64/perl5:$HOME/local/lib64/perl5/site_perl:$PERL5LIB
-export HISTIGNORE="&:ls:ls -l"
-
-# hadoop-specific commands
-#export PATH=$PATH:/fs/sand/xls/hadoop/hadoop/bin
-
-# NS2-specific commands
-#NSHOME=$HOME/temp/ns-allinone-2.34
-#export PATH=$PATH:$NSHOME/bin:$NSHOME/tcl8.4.18/unix:$NSHOME/tk8.4.18/unix
-#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NSHOME/otcl-1.13:$NSHOME/lib
-#export TCL_LIBRARY=$NSHOME/tcl8.4.18/library
-
-# eclipse-specific commands
-export PATH=/opt/stow/eclipse-jee-galileo-SR1-linux-gtk-x86_64:$PATH
-export PRINTER=ps4430bnb
+if [ -f "$HOME/.bashrc_local" ]; then
+  source $HOME/.bashrc_local
+fi
