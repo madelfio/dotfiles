@@ -35,7 +35,7 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+  xterm-color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -57,33 +57,40 @@ fi
 if [ "$color_prompt" = yes ]; then
   LIGHT_GREEN="\[\033[0;32m\]"
   if [ `/bin/hostname -s` = "hod" ] ; then
-    export hcolor=$LIGHT_GREEN
+    hcolor=$LIGHT_GREEN
   else
-    export hcolor="\[\e[38;5;$((48 + $(hostname | cksum | cut -c1-3) % 170))m\]"
+    hcolor="\[\e[38;5;$((48 + $(hostname | cksum | cut -c1-3) % 170))m\]"
   fi
   PS1="$hcolor\h\[\033[00m\]:\w\$ "
 else
-    PS1='${debian_chroot:+($debian_chroot)}\h:\w\$ '
-    #PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+  PS1='\h:\w\$ '
 fi
+
+# Show username if it's not "marco"
+test "$(whoami)" != 'marco' && PS1="\u@$PS1"
+
+# Add chroot info if needed
+PS1="${debian_chroot:+($debian_chroot)}$PS1"
+
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*)
+  xterm*|rxvt*)
     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
     ;;
-*)
+  *)
     ;;
 esac
 
 # enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-
-    alias grep='grep --color=auto'
-fi
+# if [ -x /usr/bin/dircolors ]; then
+#     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+#     alias ls='ls --color=auto'
+#     alias grep='grep --color=auto'
+# fi
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
 alias ll='ls -l --ignore=*.pyc'
 
 # Alias definitions.
