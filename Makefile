@@ -12,3 +12,8 @@ install-vim:
 install-python:
 	rm -f ~/.pythonrc
 	ln -s `pwd`/python/pythonrc ~/.pythonrc
+
+install-inputrc:
+	rm -f ~/.inputrc
+	ln -s `pwd`/other/inputrc ~/.inputrc
+
