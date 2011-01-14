@@ -102,7 +102,10 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-path_prepend $HOME/local/bin
+if [ -d ~/local ]; then
+    path_prepend $HOME/local/bin
+    # export PKG_CONFIG_PATH=$HOME/local/lib/pkgconfig:/usr/lib/pkgconfig
+fi
 
 export HISTIGNORE="&:ls:ls -l"
 export EDITOR=vim
