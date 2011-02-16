@@ -92,6 +92,7 @@ esac
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias ll='ls -l --ignore=*.pyc'
+alias rd='cd `pwd -P`'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
