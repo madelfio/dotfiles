@@ -51,7 +51,7 @@ set laststatus=2
 set showcmd
 
 " keep more lines for scope
-set scrolloff=5
+set scrolloff=4
 
 " better search
 set hlsearch
