@@ -38,9 +38,7 @@ case "$TERM" in
   xterm-color) color_prompt=yes;;
 esac
 
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
+# comment for a monochrome prompt
 force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
@@ -66,7 +64,7 @@ else
   PS1='\h:\w\$ '
 fi
 
-# Show username if it's not "marco"
+# Show username only if it's not "marco"
 test "$(whoami)" != 'marco' && PS1="\u@$PS1"
 
 # Add chroot info if needed
