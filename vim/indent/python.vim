@@ -13,6 +13,8 @@ let b:did_indent = 1
 setlocal expandtab
 setlocal nolisp
 setlocal autoindent
+" Added by MDA 3/14/11
+setlocal nosmartindent
 setlocal indentexpr=GetPythonIndent(v:lnum)
 setlocal indentkeys=!^F,o,O,<:>,0),0],0},=elif,=except
 
