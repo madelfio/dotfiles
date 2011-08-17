@@ -91,4 +91,4 @@ au BufNewFile,BufRead *.wsgi setf python
 au FileType css setlocal tabstop=4
 au FileType java setlocal tabstop=8
 au FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
-
+au FileType tex setlocal textwidth=80 nosmartindent
