@@ -75,6 +75,7 @@ fi
 
 if [ -d ~/local ]; then
     path_prepend $HOME/local/bin
+    export LD_LIBRARY_PATH=$HOME/local/lib:$LD_LIBRARY_PATH
     # export PKG_CONFIG_PATH=$HOME/local/lib/pkgconfig:/usr/lib/pkgconfig
 fi
 
