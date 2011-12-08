@@ -1,1 +1,13 @@
 set show-all-if-ambiguous on
+
+# set PageUp and PageDown to search history on current string
+"\e[5~": history-search-backward
+"\e[6~": history-search-forward 
+
+# set Ctrl-left and -right to move between words
+# (found these escape codes by using the "read" builtin and typing the
+# desired key combinations)
+"\e[5D": backward-word
+"\e[5C": forward-word
+"\e[1;5D": backward-word
+"\e[1;5C": forward-word
