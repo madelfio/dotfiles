@@ -2,12 +2,6 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-# commands for manipulating the PATH variable
-# (source: http://stackoverflow.com/questions/370047)
-path_append ()  { path_remove $1; export PATH="$PATH:$1"; }
-path_prepend () { path_remove $1; export PATH="$1:$PATH"; }
-path_remove ()  { export PATH=`echo -n $PATH | awk -v RS=: -v ORS=: '$0 != "'$1'"' | sed 's/:$//'`; }
-  
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -41,8 +35,11 @@ esac
 
 if [ "$color_prompt" = yes ]; then
   LIGHT_GREEN="\[\033[0;32m\]"
+  RED="\[\033[1;31m\]"
   if [ `/bin/hostname -s` = "hod" ] ; then
     hcolor=$LIGHT_GREEN
+  elif [ `/bin/hostname -s` = "splinter" ] ; then
+    hcolor=$RED
   else
     hcolor="\[\e[38;5;$((48 + $(hostname | cksum | cut -c1-3) % 170))m\]"
   fi
@@ -63,6 +60,12 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias ll='ls -l --ignore=*.pyc'
 alias rd='cd `pwd -P`'
+
+# commands for manipulating the PATH variable
+# (source: http://stackoverflow.com/questions/370047)
+path_append ()  { path_remove $1; export PATH="$PATH:$1"; }
+path_prepend () { path_remove $1; export PATH="$1:$PATH"; }
+path_remove ()  { export PATH=`echo -n $PATH | awk -v RS=: -v ORS=: '$0 != "'$1'"' | sed 's/:$//'`; }
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
