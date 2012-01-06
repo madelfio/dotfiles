@@ -152,6 +152,19 @@ function pdfpextr()
   ${3}
 }
 
+# by marco, modeled after pdfpextr
+function pdfmerge()
+{
+  # this function uses arguments:
+  #   $1 is the name of the output file
+  #   $2+ are the names of the input files
+  OUT=${1}
+  shift
+  gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dSAFER \
+  -sOutputFile=$OUT \
+  $@
+}
+
 
 check_distro() {
   if [ -f "/usr/bin/lsb_release" ]; then
