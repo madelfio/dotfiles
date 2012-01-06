@@ -136,6 +136,12 @@ unp() {
   fi
 }
 
+# console frequency analysis
+# inspired by http://matt.might.net/articles/console-hacks-exploiting-frequency/
+alias frequency="sort | uniq -c | sort -rn"
+alias show_command_frequency="cat ~/.bash_history | cut -d' ' -f1 | frequency | head -n 20"
+alias show_full_command_frequency="cat ~/.bash_history | frequency | head -n 20"
+
 # taken from http://www.linuxjournal.com/content/tech-tip-extract-pages-pdf
 function pdfpextr()
 {
