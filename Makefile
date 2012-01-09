@@ -17,3 +17,7 @@ install-inputrc:
 	rm -f ~/.inputrc
 	ln -s `pwd`/other/inputrc ~/.inputrc
 
+install-gitconfig:
+	rm -f ~/.gitconfig ~/.gitignore_global
+	ln -s `pwd`/other/gitconfig ~/.gitconfig
+	ln -s `pwd`/other/gitignore_global ~/.gitignore_global

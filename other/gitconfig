@@ -1,0 +1,11 @@
+[color]
+  branch = auto
+  diff = auto
+  status = auto
+  show = auto
+  log = auto
+
+[alias]
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+[core]
+	excludesfile = /nfshomes/marco/.gitignore_global
