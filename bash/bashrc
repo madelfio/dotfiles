@@ -60,6 +60,7 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias ll='ls -l --ignore=*.pyc'
 alias rd='cd `pwd -P`'
+alias whois='whois -H'
 
 # commands for manipulating the PATH variable
 # (source: http://stackoverflow.com/questions/370047)
