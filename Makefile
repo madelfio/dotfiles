@@ -1,4 +1,4 @@
-install: install-bash install-vim install-python install-inputrc
+install: install-bash install-vim install-python install-inputrc install-gitconfig
 
 install-bash:
 	rm -f ~/.bashrc
