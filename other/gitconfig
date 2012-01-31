@@ -8,4 +8,4 @@
 [alias]
   hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 [core]
-	excludesfile = /nfshomes/marco/.gitignore_global
+	excludesfile = ~/.gitignore_global
