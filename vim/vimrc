@@ -57,6 +57,9 @@ set scrolloff=4
 set hlsearch
 set incsearch
 
+" Highlight trailing whitespace
+" from http://stackoverflow.com/a/356214/145988
+match Todo /\s\+$/
 
 " choose the right filetype for html-ish files
 fun! s:SelectHTML()
