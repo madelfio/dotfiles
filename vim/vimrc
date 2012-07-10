@@ -61,6 +61,16 @@ set incsearch
 " from http://stackoverflow.com/a/356214/145988
 match Todo /\s\+$/
 
+" Remove trailing whitespace on save (for source files)
+" from http://stackoverflow.com/q/356126
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+autocmd FileType c,cpp,java,php,python,rst,ruby,tex,text autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+
 " choose the right filetype for html-ish files
 fun! s:SelectHTML()
   let n = 1
@@ -95,3 +105,4 @@ au FileType css setlocal tabstop=4
 au FileType java setlocal tabstop=8
 au FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
 au FileType tex setlocal textwidth=80 nosmartindent
+au FileType text setlocal nosmartindent
