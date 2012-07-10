@@ -118,7 +118,7 @@ export PYTHONSTARTUP=$HOME/.pythonrc
 
 # hostname completion
 # from: http://www.commandlinefu.com/commands/view/2766/ssh-autocomplete
-complete -W "$(echo $(grep '^ssh ' ~/.bash_history | sort -u | sed 's/^ssh //'))" ssh
+complete -W "$(echo $(tail ~/.bash_history -n 1000 | grep '^ssh ' | sort -u | sed 's/^ssh //'))" ssh
 # hostname completion end
 
 # easy unpacking

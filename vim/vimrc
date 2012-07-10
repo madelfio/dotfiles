@@ -61,6 +61,10 @@ set incsearch
 " from http://stackoverflow.com/a/356214/145988
 match Todo /\s\+$/
 
+" Highlight non-ascii characters (i.e., outside the range from ' ' (space)
+" to tilde
+match Todo /[^\ -~]/
+
 " Remove trailing whitespace on save (for source files)
 " from http://stackoverflow.com/q/356126
 fun! <SID>StripTrailingWhitespaces()
