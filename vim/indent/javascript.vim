@@ -19,7 +19,7 @@ if !exists("g:js_indent_log")
 endif
 
 setlocal indentexpr=GetJsIndent(v:lnum)
-setlocal indentkeys=
+setlocal indentkeys=0{,0},o,O,e,!<Tab>,*<Return>
 
 
 setlocal cindent
@@ -86,7 +86,7 @@ function! s:SearchForPair(lnum, beg, end)
 
 	" Set the cursor position to the beginning of the line (default
 	" behavior when using ==)
-	call cursor(a:lnum, 0)
+	call cursor(a:lnum, 1)
 
 	" Search for the opening tag
 	let mnum = searchpair(a:beg, '', a:end, 'bW', 
