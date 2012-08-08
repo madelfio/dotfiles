@@ -1,3 +1,5 @@
+set nocompatible
+
 syntax on
 filetype plugin indent on
 
@@ -73,7 +75,7 @@ fun! <SID>StripTrailingWhitespaces()
     %s/\s\+$//e
     call cursor(l, c)
 endfun
-autocmd FileType c,cpp,java,javascript,php,python,rst,ruby,tex,text autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+autocmd FileType c,cpp,css,erb,html,java,javascript,php,python,rst,ruby,tex,text autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 " choose the right filetype for html-ish files
 fun! s:SelectHTML()
