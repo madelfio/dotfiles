@@ -51,6 +51,8 @@ syn keyword htmlTagName contained input isindex kbd li link map menu
 syn keyword htmlTagName contained meta ol option param pre p samp span
 syn keyword htmlTagName contained select small strike sub sup
 syn keyword htmlTagName contained table td textarea th tr tt ul var xmp
+" 11/15/12 Added by Marco
+syn keyword htmlTagName contained nav
 syn match htmlTagName contained "\<\(b\|i\|u\|h[1-6]\|em\|strong\|head\|body\|title\)\>"
 
 " new html 4.0 tags

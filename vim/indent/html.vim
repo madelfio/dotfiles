@@ -104,6 +104,8 @@ call <SID>HtmlIndentPush('tt')
 call <SID>HtmlIndentPush('u')
 call <SID>HtmlIndentPush('ul')
 call <SID>HtmlIndentPush('var')
+" 11/15/12 Added by Marco
+call <SID>HtmlIndentPush('nav')
 
 
 " [-- <ELEMENT ? O O ...> --]
