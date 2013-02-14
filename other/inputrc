@@ -1,3 +1,4 @@
+# show possible completions the first time you hit tab
 set show-all-if-ambiguous on
 
 # set PageUp and PageDown to search history on current string
