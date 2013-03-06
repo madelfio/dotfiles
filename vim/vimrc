@@ -1,18 +1,40 @@
 set nocompatible
+filetype off
+
+" Bundle init from github.com/hinrik/dotfiles
+" Download vundle
+if !isdirectory(expand("~/.vim/bundle/vundle"))
+    !mkdir -p ~/.vim/bundle
+    !git clone git://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+    let s:bootstrap=1
+endif
+
+" Load bundles with vundle
+set runtimepath+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
+
+Bundle 'tpope/vim-markdown'
+Bundle 'kien/ctrlp.vim'
+Bundle 'lepture/vim-jinja'
+
+" Bootstrap vundle
+if exists("s:bootstrap") && s:bootstrap
+    unlet s:bootstrap
+    BundleInstall
+endif
 
 syntax on
 filetype plugin indent on
 
-":hi LineNr ctermfg=darkgreen
-":hi Comment ctermfg=darkgreen
-
+" Indenting
 set tabstop=2
 set shiftwidth=2
 set autoindent
 set expandtab
-set cursorline
 set smarttab
-"set smartindent
+
+set cursorline
 set visualbell
 set title
 set titleold="Terminal"
@@ -20,10 +42,9 @@ set number
 set showcmd
 
 set wrap
-set textwidth=75
+set textwidth=78
 
-" from Armin Ronacher's .vimrc:
-" http://github.com/mitsuhiko/dotfiles/blob/master/vim/vimrc
+" from http://github.com/mitsuhiko/dotfiles/blob/master/vim/vimrc
 " sets leader to ','
 let mapleader=","
 
@@ -35,21 +56,13 @@ set wildmode=list:full
 " hide matches on <leader>space
 nnoremap <leader><space> :nohlsearch<cr>
 
-" quit window on <leader>q
-nnoremap <leader>q :q<CR>
-
 " Set working directory
 nnoremap <leader>. :lcd %:p:h<CR>
-
-" Easy fileType switching
-nnoremap <leader>Tp :set ft=python<CR>
-nnoremap <leader>Th :set ft=html<CR>
 
 " Make the command line two lines high and change the statusline display to
 " something that looks useful.
 set cmdheight=2
 set laststatus=2
-"set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})
 set showcmd
 
 " keep more lines for scope
@@ -60,12 +73,30 @@ set hlsearch
 set incsearch
 
 " Highlight trailing whitespace
-" from http://stackoverflow.com/a/356214/145988
-match Todo /\s\+$/
+" From http://vim.wikia.com/wiki/Highlight_unwanted_spaces dfsldkj
+highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+augroup WhitespaceMatch
+  " Remove ALL autocommands for the WhitespaceMatch group.
+  autocmd!
+  autocmd BufWinEnter * let w:whitespace_match_number = matchadd('ExtraWhitespace', '\s\+$')
+  autocmd InsertEnter * call s:ToggleWhitespaceMatch('i')
+  autocmd InsertLeave * call s:ToggleWhitespaceMatch('n')
+augroup END
+function! s:ToggleWhitespaceMatch(mode)
+  let pattern = (a:mode == 'i') ? '\s\+\%#\@<!$' : '\s\+$'
+  if exists('w:whitespace_match_number')
+    call matchdelete(w:whitespace_match_number)
+    call matchadd('ExtraWhitespace', pattern, 10, w:whitespace_match_number)
+  else
+    " Something went wrong, try to be graceful.
+    let w:whitespace_match_number =  matchadd('ExtraWhitespace', pattern)
+  endif
+endfunction
 
 " Highlight non-ascii characters (i.e., outside the range from ' ' (space)
-" to tilde
-match Todo /[^\ -~]/
+" to tilde) ☃✈‽‘’☣
+highlight NonASCII ctermfg=gray ctermbg=darkblue
+autocmd BufWinEnter * call matchadd('NonASCII', '[^\ -~]')
 
 " Remove trailing whitespace on save (for source files)
 " from http://stackoverflow.com/q/356126
@@ -77,38 +108,8 @@ fun! <SID>StripTrailingWhitespaces()
 endfun
 autocmd FileType c,cpp,css,erb,html,java,javascript,php,python,rst,ruby,tex,text autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
-" choose the right filetype for html-ish files
-fun! s:SelectHTML()
-  let n = 1
-  while n < 50 && n < line("$")
-    " check for jinja
-    if getline(n) =~ '{%\s*\(extends\|block\|macro\|set\|if\|for\|include\|trans\)\>'
-      set ft=htmljinja
-      return
-    endif
-    " check for mako
-    "  if getline(n) =~ '<%\(def\|inherit\)'
-    "    set ft=mako
-    "    return
-    "  endif
-    " check for genshi
-    "  if getline(n) =~ 'xmlns:py\|py:\(match\|for\|if\|def\|strip\|xmlns\)'
-    "    set ft=genshi
-    "    return
-    "  endif
-    let n = n + 1
-  endwhile
-  " go with html
-  set ft=html
-endfun
-
-autocmd FileType html,xhtml,xml,htmljinja setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-autocmd BufNewFile,BufRead *.html,*.htm call s:SelectHTML()
-let html_no_rendering=1
-
 au BufNewFile,BufRead *.wsgi setf python
 au FileType css setlocal tabstop=4
 au FileType java setlocal tabstop=8
 au FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
-au FileType tex setlocal textwidth=80 nosmartindent
-au FileType text setlocal nosmartindent
+au FileType tex setlocal textwidth=80
