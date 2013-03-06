@@ -14,9 +14,10 @@ set runtimepath+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
 
-Bundle 'tpope/vim-markdown'
-Bundle 'kien/ctrlp.vim'
-Bundle 'lepture/vim-jinja'
+Bundle 'git://github.com/kien/ctrlp.vim.git'
+Bundle 'git://github.com/tpope/vim-fugitive.git'
+Bundle 'git://github.com/tpope/vim-markdown.git'
+Bundle 'git://github.com/lepture/vim-jinja.git'
 
 " Bootstrap vundle
 if exists("s:bootstrap") && s:bootstrap
@@ -59,6 +60,10 @@ nnoremap <leader><space> :nohlsearch<cr>
 " Set working directory
 nnoremap <leader>. :lcd %:p:h<CR>
 
+" Toggle paste mode and line numbering, show current state
+nnoremap <leader>p :setlocal paste! paste?<cr>
+nnoremap <leader>n :setlocal number! number?<cr>
+
 " Make the command line two lines high and change the statusline display to
 " something that looks useful.
 set cmdheight=2
@@ -71,6 +76,29 @@ set scrolloff=4
 " better search
 set hlsearch
 set incsearch
+
+" force me to use home row movement keys
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+nnoremap j gj
+nnoremap k gk
+
+" disable f1
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+
+" split window movement
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " Highlight trailing whitespace
 " From http://vim.wikia.com/wiki/Highlight_unwanted_spaces dfsldkj
