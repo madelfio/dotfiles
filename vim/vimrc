@@ -1,4 +1,28 @@
 set nocompatible
+filetype off
+
+" Bundle init from github.com/hinrik/dotfiles
+" Download vundle
+if !isdirectory(expand("~/.vim/bundle/vundle"))
+    !mkdir -p ~/.vim/bundle
+    !git clone git://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+    let s:bootstrap=1
+endif
+
+" Load bundles with vundle
+set runtimepath+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
+
+Bundle 'tpope/vim-markdown'
+Bundle 'kien/ctrlp.vim'
+Bundle 'lepture/vim-jinja'
+
+" Bootstrap vundle
+if exists("s:bootstrap") && s:bootstrap
+    unlet s:bootstrap
+    BundleInstall
+endif
 
 syntax on
 filetype plugin indent on
