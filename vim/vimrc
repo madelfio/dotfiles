@@ -21,6 +21,12 @@ Bundle 'git://github.com/lepture/vim-jinja.git'
 Bundle 'git://github.com/pthrasher/conqueterm-vim.git'
 Bundle 'git://github.com/pangloss/vim-javascript.git'
 Bundle 'git://github.com/scrooloose/nerdcommenter.git'
+Bundle 'git://github.com/vim-pandoc/vim-pandoc.git'
+Bundle 'git://github.com/godlygeek/tabular.git'
+Bundle 'git://github.com/dhruvasagar/vim-table-mode.git'
+Bundle 'git://github.com/hynek/vim-python-pep8-indent.git'
+Bundle 'git://github.com/scrooloose/syntastic.git'
+
 
 " Bootstrap vundle
 if exists("s:bootstrap") && s:bootstrap
@@ -103,8 +109,18 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" disable annoying 'Ex' mode
+noremap Q <Nop>
+
+" make :W = :w
+cnoreabbrev W w
+
 " shortcuts for using console
 nnoremap <leader>b :ConqueTerm bash<cr>
+
+" shortcut for code folding
+nnoremap <space> za
+vnoremap <space> zf
 
 " Highlight trailing whitespace
 " From http://vim.wikia.com/wiki/Highlight_unwanted_spaces dfsldkj
@@ -142,9 +158,14 @@ fun! <SID>StripTrailingWhitespaces()
 endfun
 autocmd FileType c,cpp,css,erb,html,java,javascript,php,python,rst,ruby,tex,text autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
+" Pandoc settings
+let g:pandoc_no_folding = 1
+let g:pandoc_no_spans = 1
+let g:pandoc_use_hard_wraps = 1
+
 au BufNewFile,BufRead *.wsgi setf python
 au FileType css setlocal tabstop=4
 au FileType java setlocal tabstop=8
 au FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
 au FileType tex setlocal textwidth=80
-au FileType python setlocal tabstop=4 shiftwidth=4
+au FileType python setlocal tabstop=4 shiftwidth=4 foldmethod=indent foldnestmax=2
