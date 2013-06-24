@@ -26,6 +26,7 @@ Bundle 'git://github.com/godlygeek/tabular.git'
 Bundle 'git://github.com/dhruvasagar/vim-table-mode.git'
 Bundle 'git://github.com/hynek/vim-python-pep8-indent.git'
 Bundle 'git://github.com/scrooloose/syntastic.git'
+Bundle 'git://github.com/jnwhiteh/vim-golang.git'
 
 
 " Bootstrap vundle
@@ -103,6 +104,9 @@ inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
+" disable weird "Ex mode"
+noremap Q <ESC>
+
 " split window movement
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -123,7 +127,7 @@ nnoremap <space> za
 vnoremap <space> zf
 
 " Highlight trailing whitespace
-" From http://vim.wikia.com/wiki/Highlight_unwanted_spaces dfsldkj
+" From http://vim.wikia.com/wiki/Highlight_unwanted_spaces example: 
 highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 augroup WhitespaceMatch
   " Remove ALL autocommands for the WhitespaceMatch group.
