@@ -116,6 +116,14 @@ complete -o default -F _pip_completion pip
 # set PYTHONSTARTUP
 export PYTHONSTARTUP=$HOME/.pythonrc
 
+# node.js
+# taken from http://stackoverflow.com/questions/10081293/
+export NPM_PACKAGES="$HOME/.npm-packages"
+path_prepend "$NPM_PACKAGES/bin"
+unset MANPATH
+export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
+export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
+
 # hostname completion
 # from: http://www.commandlinefu.com/commands/view/2766/ssh-autocomplete
 complete -W "$(echo $(tail ~/.bash_history -n 1000 | grep '^ssh ' | sort -u | sed 's/^ssh //'))" ssh
