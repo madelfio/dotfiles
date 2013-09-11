@@ -22,8 +22,8 @@ Bundle 'git://github.com/pthrasher/conqueterm-vim.git'
 Bundle 'git://github.com/pangloss/vim-javascript.git'
 Bundle 'git://github.com/scrooloose/nerdcommenter.git'
 Bundle 'git://github.com/vim-pandoc/vim-pandoc.git'
-Bundle 'git://github.com/godlygeek/tabular.git'
-Bundle 'git://github.com/dhruvasagar/vim-table-mode.git'
+" Bundle 'git://github.com/godlygeek/tabular.git'
+" Bundle 'git://github.com/dhruvasagar/vim-table-mode.git'
 Bundle 'git://github.com/hynek/vim-python-pep8-indent.git'
 Bundle 'git://github.com/scrooloose/syntastic.git'
 Bundle 'git://github.com/jnwhiteh/vim-golang.git'
@@ -166,6 +166,9 @@ autocmd FileType c,cpp,css,erb,html,java,javascript,php,python,rst,ruby,tex,text
 let g:pandoc_no_folding = 1
 let g:pandoc_no_spans = 1
 let g:pandoc_use_hard_wraps = 1
+
+" Stop vim-table-mode from breaking 'ctc' and 'dtd'
+let g:table_mode_cell_text_objects = 'qlskjfpq'
 
 au BufNewFile,BufRead *.wsgi setf python
 au FileType css setlocal tabstop=4
