@@ -10,6 +10,7 @@ install-vim:
 	ln -s `pwd`/vim ~/.vim
 
 install-python:
+	touch ~/.python_history
 	rm -f ~/.pythonrc
 	ln -s `pwd`/python/pythonrc ~/.pythonrc
 
