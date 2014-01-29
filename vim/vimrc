@@ -150,7 +150,16 @@ endfunction
 " Highlight non-ascii characters (i.e., outside the range from ' ' (space)
 " to tilde) ☃✈‽‘’☣
 highlight NonASCII ctermfg=gray ctermbg=darkblue
-autocmd BufWinEnter * call matchadd('NonASCII', '[^\ -~]')
+fun! HighlightNonASCII()
+  " Only highlight if the b:noHighlightWhitespace variable isn't set
+  if exists('b:noHighlightWhitespace')
+    return
+  endif
+  call matchadd('NonASCII', '[^\ -~]')
+endfun
+
+autocmd BufWinEnter * call HighlightNonASCII()
+autocmd FileType go let b:noHighlightWhitespace=1
 
 " Remove trailing whitespace on save (for source files)
 " from http://stackoverflow.com/q/356126
@@ -176,3 +185,12 @@ au FileType java setlocal tabstop=8
 au FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
 au FileType tex setlocal textwidth=80
 au FileType python setlocal tabstop=4 shiftwidth=4 foldmethod=indent foldnestmax=2
+
+filetype off
+filetype plugin indent off
+set runtimepath+=$GOROOT/misc/vim
+filetype plugin indent on
+syntax on
+
+au FileType go setlocal noexpandtab
+au FileType go autocmd BufWritePre <buffer> Fmt
