@@ -73,6 +73,7 @@ nnoremap <leader>. :lcd %:p:h<CR>
 " Toggle paste mode and line numbering, show current state
 nnoremap <leader>p :setlocal paste! paste?<cr>
 nnoremap <leader>n :setlocal number! number?<cr>
+nnoremap <leader>s :setlocal spell! spell?<cr>
 
 " Make the command line two lines high and change the statusline display to
 " something that looks useful.
