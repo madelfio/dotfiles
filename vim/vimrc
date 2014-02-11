@@ -20,13 +20,16 @@ Bundle 'git://github.com/tpope/vim-markdown.git'
 Bundle 'git://github.com/lepture/vim-jinja.git'
 Bundle 'git://github.com/pthrasher/conqueterm-vim.git'
 Bundle 'git://github.com/pangloss/vim-javascript.git'
-Bundle 'git://github.com/scrooloose/nerdcommenter.git'
-Bundle 'git://github.com/vim-pandoc/vim-pandoc.git'
+" Bundle 'git://github.com/scrooloose/nerdcommenter.git'
+" Bundle 'git://github.com/vim-pandoc/vim-pandoc.git'
 " Bundle 'git://github.com/godlygeek/tabular.git'
 " Bundle 'git://github.com/dhruvasagar/vim-table-mode.git'
 Bundle 'git://github.com/hynek/vim-python-pep8-indent.git'
 Bundle 'git://github.com/scrooloose/syntastic.git'
-Bundle 'git://github.com/jnwhiteh/vim-golang.git'
+" Bundle 'git://github.com/jnwhiteh/vim-golang.git'
+"Bundle 'git://github.com/nsf/gocode.git', {'rtp': 'vim/'}
+Bundle 'git://github.com/Blackrush/vim-gocode.git'
+Bundle 'Valloric/YouCompleteMe'
 
 
 " Bootstrap vundle
