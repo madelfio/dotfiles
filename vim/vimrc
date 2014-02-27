@@ -38,8 +38,11 @@ if exists("s:bootstrap") && s:bootstrap
     BundleInstall
 endif
 
-syntax on
+filetype off
+filetype plugin indent off
+set runtimepath+=$GOROOT/misc/vim
 filetype plugin indent on
+syntax on
 
 " Indenting
 set tabstop=2
@@ -57,6 +60,9 @@ set showcmd
 
 set wrap
 set textwidth=78
+set ruler
+
+set backspace=indent,eol,start
 
 " from http://github.com/mitsuhiko/dotfiles/blob/master/vim/vimrc
 " sets leader to ','
@@ -188,13 +194,7 @@ au FileType css setlocal tabstop=4
 au FileType java setlocal tabstop=8
 au FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
 au FileType tex setlocal textwidth=80
-au FileType python setlocal tabstop=4 shiftwidth=4 foldmethod=indent foldnestmax=2
-
-filetype off
-filetype plugin indent off
-set runtimepath+=$GOROOT/misc/vim
-filetype plugin indent on
-syntax on
+au FileType python setlocal tabstop=4 shiftwidth=4
 
 au FileType go setlocal noexpandtab
 au FileType go autocmd BufWritePre <buffer> Fmt
