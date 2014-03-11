@@ -189,6 +189,12 @@ let g:pandoc_use_hard_wraps = 1
 " Stop vim-table-mode from breaking 'ctc' and 'dtd'
 let g:table_mode_cell_text_objects = 'qlskjfpq'
 
+" Syntastic settings
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_auto_loc_list=0
+nnoremap <leader>e :lnext<CR>
+
+
 au BufNewFile,BufRead *.wsgi setf python
 au FileType css setlocal tabstop=4
 au FileType java setlocal tabstop=8
