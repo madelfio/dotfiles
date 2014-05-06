@@ -72,6 +72,9 @@ path_remove ()  { export PATH=`echo -n $PATH | awk -v RS=: -v ORS=: '$0 != "'$1'
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+# alias for simple http-server
+alias http-server='python -m SimpleHTTPServer'
+
 title () { echo -e '\e]2;'$1'\a'; }
 
 # Alias definitions.
