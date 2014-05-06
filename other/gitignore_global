@@ -3,7 +3,6 @@
 *.egg
 *.egg-info
 dist
-build
 
 # editor files
 .*.swp
