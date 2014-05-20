@@ -14,8 +14,8 @@ set runtimepath+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
 
-Bundle 'git://github.com/kien/ctrlp.vim.git'
-Bundle 'git://github.com/tpope/vim-fugitive.git'
+" Bundle 'git://github.com/kien/ctrlp.vim.git'
+" Bundle 'git://github.com/tpope/vim-fugitive.git'
 Bundle 'git://github.com/tpope/vim-markdown.git'
 Bundle 'git://github.com/lepture/vim-jinja.git'
 Bundle 'git://github.com/pthrasher/conqueterm-vim.git'
@@ -30,6 +30,7 @@ Bundle 'git://github.com/scrooloose/syntastic.git'
 "Bundle 'git://github.com/nsf/gocode.git', {'rtp': 'vim/'}
 Bundle 'git://github.com/Blackrush/vim-gocode.git'
 Bundle 'Valloric/YouCompleteMe'
+Bundle 'marijnh/tern_for_vim'
 
 
 " Bootstrap vundle
