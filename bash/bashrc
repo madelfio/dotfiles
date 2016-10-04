@@ -27,7 +27,7 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
   debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-# set a fancy prompt (non-color, unless we know we "want" color)
+# use a color prompt if terminal is good for it
 case "$TERM" in
   xterm) color_prompt=yes;;
   xterm-color) color_prompt=yes;;
@@ -199,29 +199,28 @@ check_distro() {
   uname -m
 }
 
-# Quickly jump to marked directories
-# From http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html
-export MARKPATH=$HOME/.marks
-function jump {
-  cd -P "$MARKPATH/$1" 2>/dev/null || echo "No such mark: $1"
-}
-function mark {
-  mkdir -p "$MARKPATH"; ln -s "$(pwd)" "$MARKPATH/$1"
-}
-function unmark {
-  rm -i "$MARKPATH/$1"
-}
-function marks {
-  ls -l "$MARKPATH" | sed 's/  / /g' | cut -d' ' -f9- | sed 's/ -/\t-/g' && echo
-}
-_completemarks() {
-  local curw=${COMP_WORDS[COMP_CWORD]}
-  local wordlist=$(find $MARKPATH -type l -printf "%f\n")
-  COMPREPLY=($(compgen -W '${wordlist[@]}' -- "$curw"))
-  return 0
+# From: http://eli.thegreenplace.net/2013/06/11/keeping-persistent-history-in-bash
+log_bash_persistent_history()
+{
+  [[
+    $(HISTTIMEFORMAT="%Y-%m-%d %T " history 1) =~ ^\ *[0-9]+\ +([^\ ]+\ [^\ ]+)\ +(.*)$
+  ]]
+  local date_part="${BASH_REMATCH[1]}"
+  local command_part="${BASH_REMATCH[2]}"
+  if [ "$command_part" != "$PERSISTENT_HISTORY_LAST" ]
+  then
+    echo $date_part "|" "$command_part" >> ~/.persistent_history
+    export PERSISTENT_HISTORY_LAST="$command_part"
+  fi
 }
 
-complete -F _completemarks jump unmark
+# Stuff to do on PROMPT_COMMAND
+run_on_prompt_command()
+{
+    log_bash_persistent_history
+}
+
+export PROMPT_COMMAND="run_on_prompt_command"
 
 if [ -f "$HOME/.bashrc_local" ]; then
   source $HOME/.bashrc_local
