@@ -6,6 +6,8 @@ dist
 
 # editor files
 .*.swp
+.*.swo
+*.iml
 
 # filesystem cruft
 .nfs00*
